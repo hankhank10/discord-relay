@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-CUSTOMER_URL = "https://webhook.site/c1e34f4c-f294-463c-a030-394945ef3001"
+CUSTOMER_URL = os.getenv('CUSTOMER_URL')
 
 client = discord.Client(intents=discord.Intents.all())
 
