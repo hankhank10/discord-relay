@@ -19,11 +19,17 @@ async def on_ready():
         url=CUSTOMER_URL,
         json={
             'event': 'connected_to_guild',
-            'user': client.user.name
+            'guild': {
+                'id': client.guilds[0].id
+            },
+            'user': {
+                'id': client.user.id,
+                'name': client.user.name
+            }
         }
     )
 
-    print(f'We have logged in as {client.user}')
+    logging.info(f'We have logged in as {client.user}')
 
 
 @client.event
