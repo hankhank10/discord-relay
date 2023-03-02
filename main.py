@@ -14,6 +14,15 @@ client = discord.Client(intents=discord.Intents.all())
 
 @client.event
 async def on_ready():
+
+    r = requests.post(
+        url=CUSTOMER_URL,
+        json={
+            'event': 'connected_to_guild',
+            'user': client.user
+        }
+    )
+
     print(f'We have logged in as {client.user}')
 
 
@@ -30,6 +39,7 @@ async def on_message(message):
         logging.info(f"Customer URL set to {CUSTOMER_URL}")
 
     message_json = {
+        'event': 'message',
         'message': {
             'guild': {
                 'id': message.guild.id
