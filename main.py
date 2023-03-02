@@ -19,7 +19,7 @@ async def on_ready():
         url=CUSTOMER_URL,
         json={
             'event': 'connected_to_guild',
-            'user': client.user
+            'user': client.user.name
         }
     )
 
