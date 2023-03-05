@@ -40,7 +40,7 @@ async def on_message(message):
         return
 
     if message.content.startswith("$customer_url="):
-        CUSTOMER_URL = message.content.split("=")[1]
+        CUSTOMER_URL = message.content.split("=")[1] + "api/webhook"
         await message.channel.send(f'Customer URL set to {CUSTOMER_URL}')
         logging.info(f"Customer URL set to {CUSTOMER_URL}")
 
