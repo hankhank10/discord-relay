@@ -54,6 +54,10 @@ async def on_message(message):
         await message.channel.send(f'Customer URL set to {CUSTOMER_URL}')
         message_handled = True
 
+    if message.content.startswith("$ping"):
+        await message.channel.send('Pong!')
+        message_handled = True
+
     if message.content.startswith("$server_status"):
         if check_server_status():
             await message.channel.send(f"Server is up at url {HEARTBEAT_URL}")
