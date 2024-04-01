@@ -3,7 +3,7 @@ import requests
 import logging
 
 import discord
-from dotenv import load_dotenv
+from dotenv import load_dotenv, set_key
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -21,6 +21,12 @@ def check_server_status():
         return False
     logging.info(f"Status code {r.status_code} returned from server at URL {HEARTBEAT_URL}")
     return True
+
+
+def set_customer_url(url):
+    global CUSTOMER_URL
+    CUSTOMER_URL = url
+    set_key(".env", "CUSTOMER_URL", url)
 
 
 @client.event
@@ -50,7 +56,9 @@ async def on_message(message):
         return
 
     if message.content.startswith("$customer_url="):
-        CUSTOMER_URL = message.content.split("=")[1] + "api/webhook"
+        url_provided = message.content.split("=")[1]
+        set_customer_url(url_provided)
+        logging.info(f'Customer URL set to {CUSTOMER_URL}')
         await message.channel.send(f'Customer URL set to {CUSTOMER_URL}')
         message_handled = True
 
