@@ -15,7 +15,11 @@ logging.basicConfig(level=logging.INFO)
 client = discord.Client(intents=discord.Intents.all())
 
 def check_server_status():
-    r = requests.get(HEARTBEAT_URL)
+    try:
+        r = requests.get(HEARTBEAT_URL)
+    except:
+        logging.error(f"Server is not responding at URL {HEARTBEAT_URL}")
+        return False
     if r.status_code != 200:
         logging.error(f"Status code {r.status_code} returned from server at URL {HEARTBEAT_URL}")
         return False
