@@ -75,7 +75,7 @@ async def on_message(message):
         message_handled = True
 
     if message.content.startswith("$ping"):
-        await message.channel.send('Pong! (Relay server is up)')
+        await message.channel.send('Pong! (Relay server is up - use $server_status to check game server status)')
         message_handled = True
 
     if message.content.startswith("$server_status"):
