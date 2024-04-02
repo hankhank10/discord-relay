@@ -42,10 +42,6 @@ def check_server_status():
     logging.info(f"Status code {r.status_code} returned from server at URL {heartbeat_url}")
     return True
 
-
-
-
-
 @client.event
 async def on_ready():
     r = requests.post(
@@ -79,14 +75,14 @@ async def on_message(message):
         message_handled = True
 
     if message.content.startswith("$ping"):
-        await message.channel.send('Pong!')
+        await message.channel.send('Pong! (Relay server is up)')
         message_handled = True
 
     if message.content.startswith("$server_status"):
         if check_server_status():
-            await message.channel.send(f"Server is up at url {heartbeat_url}")
+            await message.channel.send(f"Game server is up at url {heartbeat_url}")
         else:
-            await message.channel.send(f"Server is not responding at url {heartbeat_url}")
+            await message.channel.send(f"Game server is not responding at url {heartbeat_url}")
         message_handled = True
 
     message_json = {
