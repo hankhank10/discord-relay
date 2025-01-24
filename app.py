@@ -10,8 +10,16 @@ logging.basicConfig(level=logging.INFO)
 client = discord.Client(intents=discord.Intents.all())
 
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 CUSTOMER_URL = os.getenv('CUSTOMER_URL')
+
+if not CUSTOMER_URL:
+    logging.error("No customer URL provided")
+    exit(1)
+
+if not DISCORD_TOKEN:
+    logging.error("No Discord token")
+    exit(1)
 
 webhook_suffix = "api/webhook"
 heartbeat_suffix = "api/status"
@@ -118,9 +126,8 @@ async def on_message(message):
             logging.error (f"Status code {r.status_code} returned")
 
 
-
 logging.info (f"Customer URL: {CUSTOMER_URL}")
 check_server_status()
 
-client.run(TOKEN)
+client.run(DISCORD_TOKEN)
 
